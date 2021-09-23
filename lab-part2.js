@@ -28,7 +28,7 @@ db.people.updateOne({_id: ObjectId("614c9ff02017382ecf4df22f")}, {$unset: {email
 // They all had a birthday today, so add one to their age. (expect 4 matches)
 db.people.updateMany({state: "Missouri"}, {$inc: {age: 1}})
 // 6. Jerry Baker has updated information. Replace with a new document:
-b.people.replaceOne({last_name: "Baker"}, {first_name: "Jerry"}, {$set: 
+db.people.replaceOne({last_name: "Baker"}, {first_name: "Jerry"}, {$set: 
     { first_name: "Jerry", 
     last_name: "Baker-Mendez", 
     email: "jerry@classic.ly", 
@@ -63,6 +63,12 @@ db.submissions.insertMany([
 db.submissions.updateOne({title: "The River Bend"}, {$inc: {upvotes: 2}})
 // 11 Add a field round2 = true to all submissions with at least 10 upvotes. (expect 3 matches)
 db.submissions.updateMany({upvotes: {$gte: 10}}, {$set: {round2: true}})
-
-
-
+// Extended Challenges
+// 12. Update Helen Clark. She had a baby! Add a child, name: Melanie, age: 0.
+db.people.updateOne({_id: ObjectId("614c9ff02017382ecf4df2ba")}, {$push: {children: {name: "Melanie", age: 0}}})
+// 13. Joan Bishop has a child named Catherine. 
+// She just had a birthday and prefers to go by "Cat". 
+// In one query update the child's name to "Cat" 
+// and increment her age by one.
+db.people.updateOne({_id: ObjectId("614c9ff02017382ecf4df2b3")}, 
+{$set: {"children.3.name": "Cat"}, $inc: {"children.3.age": 1}})

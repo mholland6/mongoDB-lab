@@ -41,6 +41,6 @@ db.people.find({state: "Montana"}, {age: false})
 db.people.find({email: /.edu$/}, {email: true})
 // Extended Challenges
 // 14 Count all people with at least one child under age four. (69)
-
+db.people.find( {"children.age": {$lt: 4}}).count()
 // 15. List people who have no children. (43)
 // 16. List people who have at least one child. (157)
