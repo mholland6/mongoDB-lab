@@ -52,6 +52,7 @@ db.people.deleteOne({_id: ObjectId("614c9ff02017382ecf4df255")})
 db.people.deleteMany({email: null})
 // 9  
 // Add several documents to a new submissions collection. Do it all in one command. (Remember, MongoDB will create the collection for you. Just start adding documents.)
+// ObjectId must come before the artist id. It does not have to be in quotes though: ObjectId("put id here in quotes")
 db.submissions.insertMany([
   {title: "The River Bend", upvotes: 10, downvotes: 2, artist: "614c9ff02017382ecf4df1fe"},
   {title: "Nine Lives", upvotes: 7, downvotes: 0, artist: "614c9ff02017382ecf4df22c"},
