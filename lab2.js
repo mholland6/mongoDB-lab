@@ -55,3 +55,45 @@ db.people.aggregate([
 ]);
 
 // 7
+
+// Reports on orders collection:
+// 9. Find the total dollar amount of all sales ever.
+// Use the total field.
+db.orders.aggregate([
+  {
+    $group: {
+      _id: null,
+      totalSalesEver: { $sum: "$total" },
+    },
+  },
+]);
+
+// 10
+db.orders.aggregate([
+  {
+    $match: {
+      date: "2017-05-22",
+    },
+  },
+  {
+    $group: {
+      _id: null,
+      totalSalesDay: { $sum: "$total" },
+    },
+  },
+]);
+
+// 11
+// Find the date with the greatest number of orders.
+// Include the date and the number of orders.
+// Expected Result: 2017-05-04 3
+db.orders.aggregate([{ $sortByCount: "$date" }, { $limit: 1 }]);
+
+// 12 Find the date with the greatest total sales.
+// Include the date and the dollar amount for that day.
+// Expected Result: 2017-05-22 $271.2
+db.orders.aggregate([
+  { $group: { _id: "$date", greatestTotalSales: { $sum: "$total" } } },
+  { $sort: { greatestTotalSales: -1 } },
+  { $limit: 1 },
+]);
